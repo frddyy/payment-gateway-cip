@@ -1,0 +1,59 @@
+# ===============================================================
+# SERVER & PROFILE
+# ===============================================================
+server.port=8080
+spring.profiles.active=dev
+
+
+# ===============================================================
+# DATABASE (PostgreSQL)
+# ===============================================================
+spring.datasource.url=jdbc:postgresql://localhost:5432/payment_gateway_db
+spring.datasource.username=postgres
+spring.datasource.password=<YOUR_DATABASE_PASSWORD>
+
+
+# ===============================================================
+# JPA & FLYWAY
+# ===============================================================
+spring.jpa.hibernate.ddl-auto=validate
+spring.flyway.baseline-on-migrate=true
+
+
+# ===============================================================
+# SECURITY (JWT)
+# ===============================================================
+# Ganti dengan kunci Base64 acak Anda sendiri
+application.security.jwt.secret-key=<YOUR_VERY_LONG_BASE64_ENCODED_JWT_SECRET>
+application.security.jwt.expiration=86400000
+
+
+# ===============================================================
+# KAFKA PRODUCER
+# ===============================================================
+spring.kafka.producer.bootstrap-servers=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer
+application.kafka.topic.transaction-success=transaction.success
+
+
+# ===============================================================
+# FEIGN & RESILIENCE4J
+# ===============================================================
+feign.circuitbreaker.enabled=true
+client.core-banking.url=http://localhost:8080/mock/corebank
+client.biller-aggregator.url=http://localhost:8080/mock/biller
+
+resilience4j.circuitbreaker.instances.billerAggregator.sliding-window-type=COUNT_BASED
+resilience4j.circuitbreaker.instances.billerAggregator.sliding-window-size=10
+resilience4j.circuitbreaker.instances.billerAggregator.minimum-number-of-calls=5
+resilience4j.circuitbreaker.instances.billerAggregator.failure-rate-threshold=60
+resilience4j.circuitbreaker.instances.billerAggregator.wait-duration-in-open-state=10s
+
+
+# ===============================================================
+# LOGGING
+# ===============================================================
+logging.level.com.frddyy.payment_gateway=INFO
+logging.level.org.springframework.security=INFO
+logging.level.io.github.resilience4j=INFO
