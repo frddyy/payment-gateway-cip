@@ -43,7 +43,6 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: mysecretpassword
       SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
-      SPRING_PROFILES_ACTIVE: dev
 
 volumes:
   postgres_data:
