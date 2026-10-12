@@ -1,0 +1,37 @@
+server:
+  port: 8089
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:securitytestdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  flyway:
+    enabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+
+application:
+  security:
+    jwt:
+      secret-key: c9595fcec3d9ea97f6a740954ec92d5f70b100f863ba4da0f3ea58a9bfe747e3
+      expiration: 86400000
+  kafka:
+    topic:
+      transaction-success: transaction.success
+
+client:
+  core-banking:
+    url: http://localhost:8089
+  biller-aggregator:
+    url: http://localhost:8089
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.frddyy.payment_gateway: DEBUG

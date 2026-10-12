@@ -48,7 +48,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
 
         // 3. Ekstrak username dari token
-        username = jwtService.extractUsername(jwt);
+        try {
+            username = jwtService.extractUsername(jwt);
+        } catch (Exception e) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         // 4. Jika token valid, set autentikasi di Security Context
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
